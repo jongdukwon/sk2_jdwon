@@ -124,21 +124,22 @@ mvn spring-boot:run
 　  
    
 - 적용 후 REST API 의 테스트
-
 ```
 # recommendation 서비스의 추천점수 처리
-
-![20210216_191735](https://user-images.githubusercontent.com/77368612/108049471-a707bf80-708b-11eb-8666-9e6cf3b239c6.png)
-
-# recommendation 서비스의 추천상태 확인
-
-http localhost:8081/reservations/1
-
-# restaurant 서비스의 예약현황 확인
-http localhost:8084/restaurant/1
-
 ```
-    
+![20210216_193605_3](https://user-images.githubusercontent.com/77368612/108051481-4b8b0100-708e-11eb-93f2-f808f523f0f3.png)
+```
+# recommendation 서비스의 추천상태 확인
+```
+![20210216_193605_4](https://user-images.githubusercontent.com/77368612/108051483-4c239780-708e-11eb-9b28-0b58b40f14c9.png)
+```
+# reservation 서비스의 추천완료 현황 확인
+```
+![20210216_193605_5](https://user-images.githubusercontent.com/77368612/108051485-4cbc2e00-708e-11eb-8eca-0f465c8d2014.png)
+```
+# customerservice 서비스의 전체 현황 확인
+```
+![20210216_193605_6](https://user-images.githubusercontent.com/77368612/108051488-4cbc2e00-708e-11eb-8975-e597317ae359.png)
 　  
 　  
    
