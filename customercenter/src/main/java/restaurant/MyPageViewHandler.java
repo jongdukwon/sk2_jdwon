@@ -20,7 +20,7 @@ public class MyPageViewHandler {
     @StreamListener(KafkaProcessor.INPUT)
     public void whenPayCompleted_then_CREATE_1 (@Payload PayCompleted payCompleted) {
         try {
-            if (reserved.isMe()) {
+            if (payCompleted.isMe()) {
                 // view 객체 생성
                 MyPage mypage  = new MyPage();
                 // view 객체에 이벤트의 Value 를 set 함
@@ -81,7 +81,7 @@ public class MyPageViewHandler {
                     // view 객체에 이벤트의 eventDirectValue 를 set 함
                     mypage.setStatus("Recommanded");
                     // view 레파지 토리에 save
-                    Repository.save();
+                    myPageRepository.save(mypage);
                 }
             }
         }catch (Exception e){

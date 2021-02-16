@@ -7,7 +7,6 @@ public class PayCompleted extends AbstractEvent {
     private String day;
     private String status;
     private Long reservationNo;
-    private Long reservationNo;
 
     public Long getId() {
         return Id;
@@ -36,13 +35,6 @@ public class PayCompleted extends AbstractEvent {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-    public Long getReservationNo() {
-        return reservationNo;
-    }
-
-    public void setReservationNo(Long reservationNo) {
-        this.reservationNo = reservationNo;
     }
     public Long getReservationNo() {
         return reservationNo;
