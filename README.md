@@ -211,24 +211,14 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
    
 # Gateway
 - gateway > application.yml
-![20210215_154035_15](https://user-images.githubusercontent.com/77368612/107913732-43569700-6fa4-11eb-96e4-5ffac8ad85cd.png)
-    
-　  
-　  
 
-- Gateway의 External-IP 확인
+![20210216_201337](https://user-images.githubusercontent.com/77368612/108055693-a96e1780-7093-11eb-9565-f94a72a8a3b7.png)
 
-![20210215_154035_16](https://user-images.githubusercontent.com/77368612/107913733-43ef2d80-6fa4-11eb-98b4-dbe191a93c83.png)
-    
 　  
-　  
-- External-IP 로 Reservation서비스에 접근
+- Gateway(8088 Port)로 Recommendation 서비스에 접근
 
-![20210215_154035_17](https://user-images.githubusercontent.com/77368612/107913727-42be0080-6fa4-11eb-90b5-cf7b0e0cbe04.png)
-    
-　  
-　      
-　  
+![20210216_201724](https://user-images.githubusercontent.com/77368612/108055956-036edd00-7094-11eb-9621-f529eda2311c.png)
+
 　  
 
 # Deploy
