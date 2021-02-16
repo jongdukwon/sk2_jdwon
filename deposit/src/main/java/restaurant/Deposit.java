@@ -4,20 +4,7 @@ import javax.activation.MimeType;
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.PostPersist;
-
-import org.springframework.cloud.stream.messaging.Processor;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.MessageHeaders;
-import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.util.MimeTypeUtils;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Deposit_table")
@@ -46,6 +33,17 @@ public class Deposit {
             System.out.println(":::::::::::::::::::::::::::::::: stsus="+payCompleted.getStatus());
 
             payCompleted.publishAfterCommit();
+
+            //Following code causes dependency to external APIs
+            // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+
+            restaurant.external.Recommendation recommendation = new restaurant.external.Recommendation();
+            // mappings goes here
+
+            DepositApplication.applicationContext.getBean(restaurant.external.RecommendationService.class)
+                .recCreate(recommendation);
+
+
         }else if(this.getStatus().equals("PayCanceled")){
             System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: cancel");
             PayCanceled payCanceled = new PayCanceled();

@@ -22,7 +22,9 @@ public class Restaurant {
         BeanUtils.copyProperties(this, reservAccepted);
         reservAccepted.publishAfterCommit();
 
-
+        ReserveCanceled reserveCanceled = new ReserveCanceled();
+        BeanUtils.copyProperties(this, reserveCanceled);
+        reserveCanceled.publishAfterCommit();
     }
 
 
