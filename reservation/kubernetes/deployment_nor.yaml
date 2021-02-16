@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation
+  labels:
+    app: reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation
+  template:
+    metadata:
+      labels:
+        app: reservation
+    spec:
+      containers:
+        - name: reservation
+          image: skteam02.azurecr.io/reservation:latest
+          ports:
+            - containerPort: 8080
