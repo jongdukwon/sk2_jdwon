@@ -1,34 +1,35 @@
-<<<<<<< HEAD
 # 행복 Reservation (식당 예약 서비스)
 
 ![image](https://user-images.githubusercontent.com/77368612/107967071-044e3300-6ff0-11eb-8d9f-8e4e05f9bf4d.png)
 　  
-   　  
+   　 
 
 # 서비스 시나리오
 
 `기능적 요구사항`
 1. 고객이 예약서비스에서 식사를 위한 식당을 예약한다.
 1. 고객이 예약 보증금을 결제한다.
-1. 보증금 결제가 완료되면 예약내역이 식당에 전달된다.
+1. 보증금 결제가 완료되면 예약내역이 식당에 전달되고, 추천 서비스에도 전달 된다.
 1. 식당에 예약정보가 전달되면 예약서비스에 예약상태를 완료 상태로 변경한다.
-1. 예약이 완료되면 예약서비스에서 현재 예약상태를 조회할 수 있다.
-1. 고객이 예약을 취소할 수 있다.
 1. 고객이 예약 보증금에 대한 결제상태를 Deposit 서비스에서 조회 할 수 있다.
+1. 예약이 완료되면 예약서비스에서 현재 예약상태를 조회할 수 있다.
+1. 고객이 예약을 취소할 수 있으며, 예약을 취소하면 추천정보도 함께 삭제된다.
+1. 고객이 예약한 식당에 대한 평가점수를 부여한다.
 1. 고객이 모든 진행내역을 볼 수 있어야 한다.
+
   
   
 `비기능적 요구사항`
 1. 트랜잭션
     1. No Show를 방지하기 위해 Deposit이 결재되지 않으면 예약이 안되도록 한다.(Sync)
-    1. 예약을 취소하면 Deposit을 환불하고 Restaurant에 예약취소 내역을 전달한다.(Async)
+    1. Deposit이 결재되면 추천대상 예약정보를 반드시 등록하도록 한다.(Sync)
+    1. 예약을 취소하면 Deposit을 환불하고 Restaurant에 예약취소 내역을 전달하며, 추천정보도 삭제한다.(Async)
 1. 장애격리
     1. Deposit 시스템이 과중되면 예약을 받지 않고 잠시후에 하도록 유도한다(Circuit breaker, fallback)
+    1. 추천시스템이 과중되면 예약 및 결재를 받지않고 잠시후에 하도록 유도하다.(Circuit breaker, fallback)
     1. Restaurant 서비스가 중단되더라도 예약은 받을 수 있다.(Asyncm, Event Dirven)
 1. 성능
-    1. 고객이 예약상황을 조회할 수 있도록 별도의 view로 구성한다.(CQRS)  
-
-
+    1. 고객이 예약 및 추천 상황을 조회할 수 있도록 별도의 view로 구성한다.(CQRS)  
 　    
   
   
@@ -52,54 +53,39 @@
 # 분석/설계
 
 ### Event Storming 결과
-![eventStorming](https://user-images.githubusercontent.com/77368612/107878112-d3003500-6f13-11eb-8fd8-aaf056f10f56.png)
+![20210216_180508](https://user-images.githubusercontent.com/77368612/108041331-b5e97480-7081-11eb-912e-ac4008b8b765.png)
+
 　  
 　     
-### 기능적 요구사항 검증(1)
+### 추가 요구사항 검증
 
-![1](https://user-images.githubusercontent.com/77368612/107893185-15099500-6f6d-11eb-8a93-acf90d472651.png)
+![20210216_190232](https://user-images.githubusercontent.com/77368612/108047794-8a6a8800-7089-11eb-82b4-bfe1924534ab.png)
 
-    - 고객이 예약서비스에서 식사를 위한 식당을 예약한다.(OK)
-    - 고객이 예약 보증금을 결제한다.(OK)
-    - 보증금 결제가 완료되면 예약내역이 식당에 전달된다.(OK)
-    - 식당에 예약정보가 전달되면 예약서비스에 예약상태를 완료 상태로 변경한다.(OK)
-    - 예약이 완료되면 예약서비스에서 현재 예약상태를 조회할 수 있다.(OK)
-    
-　  
-　  
-### 기능적 요구사항 검증(2)   
-![2](https://user-images.githubusercontent.com/77368612/107893188-189d1c00-6f6d-11eb-9925-89954a8166c7.png)
-
-    - 고객이 예약을 취소할 수 있다.(OK)
-    - 예약을 취소하면 보증금을 환불한다.(OK)
+    - 보증금 결제가 완료되면 예약내역이 식당에 전달되고, 추천 서비스에도 전달 된다.(OK)
+    - 고객이 예약을 취소하면 보증금을 환불하고 식당 및 추천서비스에 취소내역을 전달한다.(OK)
     - 고객이 예약 보증금에 대한 결제상태를 Deposit 서비스에서 조회 할 수 있다.(OK)  
-    
-    
-　  
-　  
-### 기능적 요구사항 검증(3)   
-![3](https://user-images.githubusercontent.com/77368612/107893192-1aff7600-6f6d-11eb-8266-2ea3bdb817fe.png)
+
+    - 고객이 예약한 식당에 대한 평가점수를 부여한다.(OK)
+    - 예약사항에 대한 평가여부를 예약서비스에 전달한다.(OK)
 
     - 고객이 모든 진행내역을 볼 수 있어야 한다.(OK)
     
 　  
-　  
    
-### 비기능 요구사항 검증
+### 추가 비기능 요구사항 검증
 
-    - Deposit이 결재되지 않으면 예약이 안되도록 해아 한다.(Req/Res)
-    - Restaurant 서비스가 중단되더라도 예약은 받을 수 있어야 한다.(Pub/Sub)
-    - Deposit 시스템이 과중되면 예약을 받지 않고 잠시후에 하도록 유도한다(Circuit breaker)
-    - 예약을 취소하면 Deposit을 환불하고 Restaurant에 예약취소 내역을 업데이트해야 한다.(SAGA)
-    - 고객이 예약상황을 조회할 수 있도록 별도의 view로 구성한다.(CQRS)  
+    - 추천정보 등록이 되지 않으면 Deposit 결재가 안되도록 해아 한다.(Req/Res)
+    - 예약(Reservation) 서비스가 중단되더라도 식당추천은 할 수 있어야 한다.(Pub/Sub)
+    - 추천(Recommendation) 시스템이 과중되면 예약 및 예치금 결재를 받지 않고 잠시 후에 하도록 유도한다(Circuit breaker)
+    - 추천을 완료하면 예약 서비스에 추천완료 상태를 업데이트해야 한다.(SAGA)
+    - 추천 상황을 조회할 수 있도록 별도의 view로 구성한다.(CQRS)  
     
 　  
 　  
        
-
 # 구현
 
-서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 8084 이다)
+서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 8085 이다)
 
 ```
 cd reservation
@@ -113,6 +99,9 @@ mvn spring-boot:run
 
 cd restaurant
 mvn spring-boot:run 
+
+cd recommandation
+mvn spring-boot:run 
 ```
     
 　  
@@ -120,51 +109,54 @@ mvn spring-boot:run
    
 ### DDD 의 적용
 
-- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언하였다: (예시는 reservation 마이크로 서비스)
+- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언하였다: (예시는 Recommendation 마이크로 서비스)
 
-![20210215_120254](https://user-images.githubusercontent.com/77368612/107901177-5c504f80-6f86-11eb-94af-48fa5a03d79e.png)
+![20210216_191136](https://user-images.githubusercontent.com/77368612/108048846-dc5fdd80-708a-11eb-9e49-6a581bff3cbc.png)
     
 　  
 　  
    
 - Entity Pattern 과 Repository Pattern 을 적용하여 JPA 를 통하여 다양한 데이터소스 유형 (RDB or NoSQL) 에 대한 별도의 처리가 없도록 데이터 접근 어댑터를 자동 생성하기 위하여 Spring Data REST 의 RestRepository 를 적용하였다
 
-![20210215_120624](https://user-images.githubusercontent.com/77368612/107901239-7f7aff00-6f86-11eb-8cc0-17d18e75b2cb.png)
+![20210216_191353](https://user-images.githubusercontent.com/77368612/108049048-2052e280-708b-11eb-8f8d-6d594c7d06d2.png)
     
 　  
 　  
    
 - 적용 후 REST API 의 테스트
-
 ```
-# reservation 서비스의 예약처리
-http localhost:8081/reservations restaurantNo=1 day=20210215
-
-# reservation 서비스의 예약상태 확인
-http localhost:8081/reservations/1
-
-# restaurant 서비스의 예약현황 확인
-http localhost:8084/restaurant/1
-
+# recommendation 서비스의 추천점수 처리
 ```
-    
+![20210216_193605_3](https://user-images.githubusercontent.com/77368612/108051481-4b8b0100-708e-11eb-93f2-f808f523f0f3.png)
+```
+# recommendation 서비스의 추천상태 확인
+```
+![20210216_193605_4](https://user-images.githubusercontent.com/77368612/108051483-4c239780-708e-11eb-9b28-0b58b40f14c9.png)
+```
+# reservation 서비스의 추천완료 현황 확인
+```
+![20210216_193605_5](https://user-images.githubusercontent.com/77368612/108051485-4cbc2e00-708e-11eb-8eca-0f465c8d2014.png)
+```
+# customerservice 서비스의 전체 현황 확인
+```
+![20210216_193605_6](https://user-images.githubusercontent.com/77368612/108051488-4cbc2e00-708e-11eb-8975-e597317ae359.png)
 　  
 　  
+   
    
 
 # Polyglot
 
-Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant 서비스의 경우 Hsql로 구현하여 MSA간의 서로 다른 종류의 Database에도 문제없이 작동하여 다형성을 만족하는지 확인하였다.
+Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommendation 서비스의 경우 Hsql로 구현하여 MSA간의 서로 다른 종류의 Database에도 문제없이 작동하여 다형성을 만족하는지 확인하였다.
 
 - reservation, deposit, customercenter의 pom.xml 파일 설정
 
-![20210215_151200_10](https://user-images.githubusercontent.com/77368612/107911566-359f1280-6fa0-11eb-98ff-a15e7f95d942.png)
+![20210216_194247](https://user-images.githubusercontent.com/77368612/108052240-2e0a6700-708f-11eb-8e69-79fce45c73d8.png)
     
-　  
- 
-- restaurant의 pom.xml 파일 설정
 
-![20210215_151200_9](https://user-images.githubusercontent.com/77368612/107911570-3637a900-6fa0-11eb-818e-df269a61ae2d.png)
+- restaurant, recommendation의 pom.xml 파일 설정
+
+![20210216_194240](https://user-images.githubusercontent.com/77368612/108052238-2d71d080-708f-11eb-9e50-1ba5089111c4.png)
     
 　  
     
@@ -459,6 +451,3 @@ kubectl apply -f kubernetes/deployment.yaml
 
 ![20210215_180742_31](https://user-images.githubusercontent.com/77368612/107926211-c255ca80-6fb8-11eb-93b5-200e3e2c36a0.png)
 
-=======
-# sk2_jdwon
->>>>>>> 6d65d52e13d06a221e06428fe974c96574449658
