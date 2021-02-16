@@ -420,20 +420,19 @@ kubectl apply -f kubernetes/deployment.yaml
 　  
 # Self-healing (Liveness Probe)
 
-- deployment.yml 에 Liveness Probe 옵션 추가
+- recommendation > deployment.yml 에 Liveness Probe 옵션 추가
 
-![image](https://user-images.githubusercontent.com/77368612/107970557-99532b00-6ff4-11eb-82bf-312a9f8f3c8b.png)
+![20210216_223059](https://user-images.githubusercontent.com/77368612/108069582-e0015d80-70a6-11eb-89fc-9f3d04719fed.png)
     
 　  
 　  
-- reservation pod에 liveness가 적용된 부분 확인
+- recommendation pod에 liveness가 적용된 부분 확인
 
-![20210215_181110_32](https://user-images.githubusercontent.com/77368612/107926561-37c19b00-6fb9-11eb-9fc0-98b22505b3bd.png)
+![20210216_223330](https://user-images.githubusercontent.com/77368612/108069716-06bf9400-70a7-11eb-92ed-5869c62ae214.png)
 
     
 　  
-　  
-- reservation 서비스의 liveness가 발동되어 3번 retry 시도 한 부분 확인
+- recommendation 서비스의 liveness가 발동되어 5번 retry 시도 한 부분 확인
 
-![20210215_180742_31](https://user-images.githubusercontent.com/77368612/107926211-c255ca80-6fb8-11eb-93b5-200e3e2c36a0.png)
+![20210216_223050](https://user-images.githubusercontent.com/77368612/108069802-2060db80-70a7-11eb-8422-1a9c9ffdb509.png)
 
