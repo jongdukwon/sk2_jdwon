@@ -20,18 +20,12 @@ public class Deposit {
 
     @PostPersist
     public void onPostPersist(){
-        System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"+this.getStatus());
+        
         if(this.getStatus().equals("PayCompleted")){
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Deposit : PayCompleted");
             //DepositPayed
             PayCompleted payCompleted = new PayCompleted();
             BeanUtils.copyProperties(this, payCompleted);
-
-            System.out.println(":::::::::::::::::::::::::::::::: id="+payCompleted.getId());
-            System.out.println(":::::::::::::::::::::::::::::::: reservationNo="+payCompleted.getId());
-            System.out.println(":::::::::::::::::::::::::::::::: restaurantNO="+payCompleted.getRestaurantNo());
-            System.out.println(":::::::::::::::::::::::::::::::: day="+payCompleted.getDay());
-            System.out.println(":::::::::::::::::::::::::::::::: stsus="+payCompleted.getStatus());
-
             payCompleted.publishAfterCommit();
 
             //Following code causes dependency to external APIs
@@ -39,13 +33,15 @@ public class Deposit {
 
             restaurant.external.Recommendation recommendation = new restaurant.external.Recommendation();
             // mappings goes here
+            recommendation.setReservationNo(payCompleted.getId());
+            recommendation.setRestaurantNo(payCompleted.getRestaurantNo());
 
             DepositApplication.applicationContext.getBean(restaurant.external.RecommendationService.class)
                 .recCreate(recommendation);
 
 
         }else if(this.getStatus().equals("PayCanceled")){
-            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: cancel");
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Deposit : PayCanceled");
             PayCanceled payCanceled = new PayCanceled();
             BeanUtils.copyProperties(this, payCanceled);
             payCanceled.publishAfterCommit();

@@ -7,34 +7,37 @@ import java.util.List;
 @Entity
 @Table(name="Recommendation_table")
 public class Recommendation {
-
-    private Long id;
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long Id;
     private Long reservationNo;
     private String restaurantNo;
     private Long point;
 
     @PostPersist
     public void onPostPersist(){
-        RecChecked recChecked = new RecChecked();
-        BeanUtils.copyProperties(this, recChecked);
-        recChecked.publishAfterCommit();
-
-    }
-
-    @PostUpdate
-    public void onPostUpdate(){
+        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: RecCreated Call");
         RecCreated recCreated = new RecCreated();
         BeanUtils.copyProperties(this, recCreated);
         recCreated.publishAfterCommit();
     }
 
-
-    public Long getId() {
-        return id;
+    @PostUpdate
+    public void onPostUpdate(){
+        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: RecChecked Call");
+        RecChecked recChecked = new RecChecked();
+        BeanUtils.copyProperties(this, recChecked);
+        recChecked.publishAfterCommit();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
     }
     public Long getReservationNo() {
         return reservationNo;

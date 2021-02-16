@@ -30,7 +30,6 @@ public class PolicyHandler{
 
             Optional<Reservation> reservationOptional = reservationRepository.findById(reservAccepted.getReservationNo());
             Reservation reservation = reservationOptional.get();
-            reservation.setStatus(reservAccepted.getStatus());
             reservation.setStatus("Reserved");
             reservationRepository.save(reservation);
         }
@@ -42,9 +41,8 @@ public class PolicyHandler{
         if(recChecked.isMe()){
             System.out.println("##### listener  : " + recChecked.toJson());
 
-            Optional<Reservation> reservationOptional = reservationRepository.findById(reservAccepted.getReservationNo());
+            Optional<Reservation> reservationOptional = reservationRepository.findById(recChecked.getReservationNo());
             Reservation reservation = reservationOptional.get();
-            reservation.setStatus(reservAccepted.getStatus());
             reservation.setStatus("Recommanded");
             reservationRepository.save(reservation);
 

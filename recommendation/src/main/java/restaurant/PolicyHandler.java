@@ -17,19 +17,20 @@ public class PolicyHandler{
 
     }
 
+    @Autowired
+    RecommendationRepository recommendationRepository;
+
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverReserveCanceled_(@Payload ReserveCanceled reserveCanceled){
-
+        
         if(reserveCanceled.isMe()){
+            System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Handler : reserveCanceled");
             System.out.println("##### listener  : " + reserveCanceled.toJson());
-            /*
-            Optional<Reservation> reservationOptional = reservationRepository.findById(reservAccepted.getReservationNo());
-            Reservation reservation = reservationOptional.get();
-            reservation.setStatus(reservAccepted.getStatus());
-            reservation.setStatus("Recommanded");
-            reservationRepository.save(reservation);
-            */
-            reservationRepository.delete(reservAccpted.getReservationNo());
+            
+            Optional<Recommendation> recommendationOptional = recommendationRepository.findById(reserveCanceled.getReservationNo());
+            Recommendation recommendation = recommendationOptional.get();
+
+            recommendationRepository.delete(recommendation);
         }
     }
 

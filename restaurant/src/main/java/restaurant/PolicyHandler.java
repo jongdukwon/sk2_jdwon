@@ -21,8 +21,9 @@ public class PolicyHandler{
 
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverPayCompleted_(@Payload PayCompleted payCompleted){
-        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: payCompleted");
+        
         if(payCompleted.isMe()){
+            System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Handler: payCompleted");
             System.out.println("#### listener : " + payCompleted.toJson());
 
             Restaurant restaurant = new Restaurant();
@@ -38,8 +39,9 @@ public class PolicyHandler{
     
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverPayCanceled_(@Payload PayCanceled payCanceled){
-        System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: PayCanceled");
+        
         if(payCanceled.isMe()){
+            System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Handler: PayCanceled");
             System.out.println("##### listener  : " + payCanceled.toJson());
             
             List<Restaurant> restaurantlist = restaurantRepository.findByReservationNo(payCanceled.getReservationNo());

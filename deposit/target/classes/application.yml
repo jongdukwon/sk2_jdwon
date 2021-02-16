@@ -46,6 +46,9 @@ logging:
     org.springframework.cloud: debug
 server:
   port: 8082
+api:
+  recommendation:
+    url: http://localhost:8085
 ---
 
 spring:
@@ -80,3 +83,6 @@ hystrix:
   command: 
     default: 
       execution.isolation.thread.timeoutInMilliseconds: 610 
+api:
+  recommendation:
+    url: http://recommendation:8080

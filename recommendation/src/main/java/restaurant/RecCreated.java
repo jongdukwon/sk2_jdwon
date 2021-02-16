@@ -1,8 +1,8 @@
-package RESTAURANT;
+package restaurant;
 
 public class RecCreated extends AbstractEvent {
 
-    private Long id;
+    private Long Id;
     private Long reservationNo;
     private String restaurantNo;
     private Long point;
@@ -12,11 +12,11 @@ public class RecCreated extends AbstractEvent {
     }
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long Id) {
+        this.Id = Id;
     }
     public Long getReservationNo() {
         return reservationNo;

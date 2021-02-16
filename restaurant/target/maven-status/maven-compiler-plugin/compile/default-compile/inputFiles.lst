@@ -3,6 +3,7 @@
 /home/project/sk2/restaurant/src/main/java/restaurant/PayCompleted.java
 /home/project/sk2/restaurant/src/main/java/restaurant/AbstractEvent.java
 /home/project/sk2/restaurant/src/main/java/restaurant/PolicyHandler.java
+/home/project/sk2/restaurant/src/main/java/restaurant/ReserveCanceled.java
 /home/project/sk2/restaurant/src/main/java/restaurant/RestaurantRepository.java
 /home/project/sk2/restaurant/src/main/java/restaurant/RestaurantController.java
 /home/project/sk2/restaurant/src/main/java/restaurant/Restaurant.java

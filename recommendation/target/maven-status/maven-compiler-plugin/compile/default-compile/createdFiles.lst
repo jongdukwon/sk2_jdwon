@@ -1,0 +1,11 @@
+restaurant/Recommendation.class
+restaurant/RecChecked.class
+restaurant/AbstractEvent.class
+restaurant/RecommendationController.class
+restaurant/AbstractEvent$1.class
+restaurant/ReserveCanceled.class
+restaurant/PolicyHandler.class
+restaurant/RecCreated.class
+restaurant/RecommendationRepository.class
+restaurant/RecommendationApplication.class
+restaurant/config/kafka/KafkaProcessor.class

@@ -1,5 +1,4 @@
 restaurant/ReservationRepository.class
-restaurant/PolicyHandler.class
 restaurant/Reservation.class
 restaurant/Reserved.class
 restaurant/ReservAccepted.class

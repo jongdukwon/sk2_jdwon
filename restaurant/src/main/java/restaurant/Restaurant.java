@@ -18,13 +18,22 @@ public class Restaurant {
 
     @PostPersist
     public void onPostPersist(){
-        ReservAccepted reservAccepted = new ReservAccepted();
-        BeanUtils.copyProperties(this, reservAccepted);
-        reservAccepted.publishAfterCommit();
 
-        ReserveCanceled reserveCanceled = new ReserveCanceled();
-        BeanUtils.copyProperties(this, reserveCanceled);
-        reserveCanceled.publishAfterCommit();
+        if("Reserved".equals(this.getStatus())){
+             System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Restaurant : Reserved");
+
+            ReservAccepted reservAccepted = new ReservAccepted();
+            BeanUtils.copyProperties(this, reservAccepted);
+            reservAccepted.publishAfterCommit();
+        }
+        if("PayCanceled".equals(this.getStatus())){
+             System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Restaurant : PayCanceled");
+
+            ReserveCanceled reserveCanceled = new ReserveCanceled();
+            BeanUtils.copyProperties(this, reserveCanceled);
+            reserveCanceled.publishAfterCommit();
+        
+        }
     }
 
 

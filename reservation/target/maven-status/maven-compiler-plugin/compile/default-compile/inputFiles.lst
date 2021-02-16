@@ -3,10 +3,11 @@
 /home/project/sk2/reservation/src/main/java/restaurant/ReservationApplication.java
 /home/project/sk2/reservation/src/main/java/restaurant/Canceled.java
 /home/project/sk2/reservation/src/main/java/restaurant/ReservationController.java
-/home/project/sk2/reservation/src/main/java/restaurant/ReservationRepository.java
 /home/project/sk2/reservation/src/main/java/restaurant/config/kafka/KafkaProcessor.java
 /home/project/sk2/reservation/src/main/java/restaurant/external/Deposit.java
 /home/project/sk2/reservation/src/main/java/restaurant/AbstractEvent.java
-/home/project/sk2/reservation/src/main/java/restaurant/PolicyHandler.java
 /home/project/sk2/reservation/src/main/java/restaurant/external/DepositService.java
+/home/project/sk2/reservation/src/main/java/restaurant/ReservationRepository.java
+/home/project/sk2/reservation/src/main/java/restaurant/RecChecked.java
+/home/project/sk2/reservation/src/main/java/restaurant/PolicyHandler.java
 /home/project/sk2/reservation/src/main/java/restaurant/Reserved.java

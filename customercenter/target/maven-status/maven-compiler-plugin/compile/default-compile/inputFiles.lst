@@ -1,8 +1,9 @@
+/home/project/sk2/customercenter/src/main/java/restaurant/RecChecked.java
+/home/project/sk2/customercenter/src/main/java/restaurant/PayCompleted.java
 /home/project/sk2/customercenter/src/main/java/restaurant/CustomercenterApplication.java
 /home/project/sk2/customercenter/src/main/java/restaurant/PayCanceled.java
 /home/project/sk2/customercenter/src/main/java/restaurant/AbstractEvent.java
 /home/project/sk2/customercenter/src/main/java/restaurant/PolicyHandler.java
-/home/project/sk2/customercenter/src/main/java/restaurant/Reserved.java
 /home/project/sk2/customercenter/src/main/java/restaurant/MyPageViewHandler.java
 /home/project/sk2/customercenter/src/main/java/restaurant/config/kafka/KafkaProcessor.java
 /home/project/sk2/customercenter/src/main/java/restaurant/MyPageRepository.java

@@ -1,7 +1,7 @@
 package restaurant;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
- import java.util.List;
+import java.util.List;
 
 public interface RestaurantRepository extends PagingAndSortingRepository<Restaurant, Long>{
 
