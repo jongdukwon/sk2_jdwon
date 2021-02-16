@@ -253,10 +253,12 @@ kubectl expose deploy recommendation --type="ClusterIP" --port=8080 -n sk2
 kubectl create deploy gateway --image=jdwon.azurecr.io/gateway:latest -n sk2
 kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 
-#kubectl get all -n sk2
 ```
 　  
 - Deploy 확인
+```
+#kubectl get all -n sk2
+```
 
 ![20210216_215245](https://user-images.githubusercontent.com/77368612/108065449-5e5b0100-70a1-11eb-8762-22b8a3784f76.png)
 
