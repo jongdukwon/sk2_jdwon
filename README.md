@@ -143,20 +143,20 @@ mvn spring-boot:run
 　  
 　  
    
+   
 
 # Polyglot
 
-Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant 서비스의 경우 Hsql로 구현하여 MSA간의 서로 다른 종류의 Database에도 문제없이 작동하여 다형성을 만족하는지 확인하였다.
+Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommendation 서비스의 경우 Hsql로 구현하여 MSA간의 서로 다른 종류의 Database에도 문제없이 작동하여 다형성을 만족하는지 확인하였다.
 
 - reservation, deposit, customercenter의 pom.xml 파일 설정
 
-![20210215_151200_10](https://user-images.githubusercontent.com/77368612/107911566-359f1280-6fa0-11eb-98ff-a15e7f95d942.png)
+![20210216_194247](https://user-images.githubusercontent.com/77368612/108052240-2e0a6700-708f-11eb-8e69-79fce45c73d8.png)
     
-　  
- 
-- restaurant의 pom.xml 파일 설정
 
-![20210215_151200_9](https://user-images.githubusercontent.com/77368612/107911570-3637a900-6fa0-11eb-818e-df269a61ae2d.png)
+- restaurant, recommendation의 pom.xml 파일 설정
+
+![20210216_194240](https://user-images.githubusercontent.com/77368612/108052238-2d71d080-708f-11eb-9e50-1ba5089111c4.png)
     
 　  
     
