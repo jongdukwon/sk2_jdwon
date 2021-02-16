@@ -190,27 +190,22 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
     
 　  
 　  
-### 동기식 결제 장애시
+### 추천(Recommendation)서비스 장애시(Req/Resp)
 
 ```
-# 결제 (deposit) 서비스를 잠시 내려놓음
-# 예약 처리
-kubectl delete deploy deposit -n skteam02
+# 추천(Recommendation) 서비스를 잠시 내려놓음
 ```
-- 동기식 호출에서는 호출 시간에 따른 타임 커플링이 발생하며, 예치금 결제 시스템이 장애가 나면 예약도 못받는다는 것을 확인
-![20210215_152729_13](https://user-images.githubusercontent.com/77368612/107912870-aa734c00-6fa2-11eb-9b22-b78f27d39cb9.png)
+- 동기식 호출에서는 호출 시간에 따른 타임 커플링이 발생하며, 추천(Recommendation) 시스템이 장애가 나면 예약도 못받는다는 것을 확인
+
+![20210216_200734](https://user-images.githubusercontent.com/77368612/108055190-fc939a80-7092-11eb-95e8-2cdb96bd9a93.png)
     
 　  
-　  
 ```
-# 결재(deposit)서비스 재기동
-kubectl create deploy deposit --image=skteam02.azurecr.io/deposit:latest -n skteam02
+# 추천(Recommendation) 서비스 재기동
 ```
-![20210215_152729_14](https://user-images.githubusercontent.com/77368612/107912865-a9421f00-6fa2-11eb-80f8-309050271489.png)
-    
-　  
-　  
-    
+
+![20210216_200729](https://user-images.githubusercontent.com/77368612/108055188-fbfb0400-7092-11eb-9c3b-8216d12c1f3c.png)
+
 　  
 　  
    
