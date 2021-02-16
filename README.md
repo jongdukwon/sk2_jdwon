@@ -72,7 +72,7 @@
     
 　  
    
-### 추가된 비기능 요구사항 검증
+### 추가 비기능 요구사항 검증
 
     - 추천정보 등록이 되지 않으면 Deposit 결재가 안되도록 해아 한다.(Req/Res)
     - 예약(Reservation) 서비스가 중단되더라도 식당추천은 할 수 있어야 한다.(Pub/Sub)
@@ -99,7 +99,6 @@ mvn spring-boot:run
 
 cd restaurant
 mvn spring-boot:run 
-```
 
 cd recommandation
 mvn spring-boot:run 
@@ -110,16 +109,16 @@ mvn spring-boot:run
    
 ### DDD 의 적용
 
-- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언하였다: (예시는 reservation 마이크로 서비스)
+- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언하였다: (예시는 Recommendation 마이크로 서비스)
 
-![20210215_120254](https://user-images.githubusercontent.com/77368612/107901177-5c504f80-6f86-11eb-94af-48fa5a03d79e.png)
+![20210216_191136](https://user-images.githubusercontent.com/77368612/108048846-dc5fdd80-708a-11eb-9e49-6a581bff3cbc.png)
     
 　  
 　  
    
 - Entity Pattern 과 Repository Pattern 을 적용하여 JPA 를 통하여 다양한 데이터소스 유형 (RDB or NoSQL) 에 대한 별도의 처리가 없도록 데이터 접근 어댑터를 자동 생성하기 위하여 Spring Data REST 의 RestRepository 를 적용하였다
 
-![20210215_120624](https://user-images.githubusercontent.com/77368612/107901239-7f7aff00-6f86-11eb-8cc0-17d18e75b2cb.png)
+![20210216_191353](https://user-images.githubusercontent.com/77368612/108049048-2052e280-708b-11eb-8f8d-6d594c7d06d2.png)
     
 　  
 　  
@@ -127,10 +126,12 @@ mvn spring-boot:run
 - 적용 후 REST API 의 테스트
 
 ```
-# reservation 서비스의 예약처리
-http localhost:8081/reservations restaurantNo=1 day=20210215
+# recommendation 서비스의 추천점수 처리
 
-# reservation 서비스의 예약상태 확인
+![20210216_191735](https://user-images.githubusercontent.com/77368612/108049471-a707bf80-708b-11eb-8666-9e6cf3b239c6.png)
+
+# recommendation 서비스의 추천상태 확인
+
 http localhost:8081/reservations/1
 
 # restaurant 서비스의 예약현황 확인
