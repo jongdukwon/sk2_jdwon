@@ -1,4 +1,4 @@
-# 행복 Reservation (식당 예약 서비스)
+# 행복 Reservation (식당 예약 서비스) / 개인과제
 
 ![image](https://user-images.githubusercontent.com/77368612/107967071-044e3300-6ff0-11eb-8d9f-8e4e05f9bf4d.png)
 　  
@@ -166,7 +166,7 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
 
 # Req/Resp
 ```
-1. 분석단계에서의 조건 중 하나로 예약(reservation)->예치금 결제(deposit) 간의 호출은 동기식 일관성을 유지하는
+1.예약(reservation)->예치금 결제(deposit)->추천(Recommendation) 간의 호출은 일관성을 유지하도록 동기식
 트랜잭션으로 처리하기로 하였다. 
 
 2. 호출 프로토콜은 이미 앞서 Rest Repository 에 의해 노출되어있는 REST 서비스를 FeignClient 를 이용하여 
@@ -176,17 +176,16 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
 　  
     
     
-- 예치금 결제서비스를 호출하기 위하여 Stub과 (FeignClient) 를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현  (Depositservice.java)
+- 추천서비스를 호출하기 위하여 Stub과 (FeignClient) 를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현  (Recommendationservice.java)
 
-![20210215_152121_11](https://user-images.githubusercontent.com/77368612/107912260-8d8a4900-6fa1-11eb-801d-61eaf1bf8fa0.png)
+![20210216_195617](https://user-images.githubusercontent.com/77368612/108053689-17650f80-7091-11eb-9937-4c7062db9a80.png)
 
     
 　  
     
 
-- 예약을 받은 직후(@PostPersist) 예치금 결제를 요청하도록 처리
-
-![20210215_152121_12](https://user-images.githubusercontent.com/77368612/107912264-8ebb7600-6fa1-11eb-8f14-3468a9a51478.png)
+- 예치금 결재를 완료한 직후(@PostPersist) 추천정보 등록을 요청하도록 처리
+![20210216_195624](https://user-images.githubusercontent.com/77368612/108053690-18963c80-7091-11eb-8829-77a43cb52622.png)
     
 　  
 　  
