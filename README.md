@@ -185,6 +185,7 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
     
 
 - 예치금 결재를 완료한 직후(@PostPersist) 추천정보 등록을 요청하도록 처리
+
 ![20210216_195624](https://user-images.githubusercontent.com/77368612/108053690-18963c80-7091-11eb-8829-77a43cb52622.png)
     
 　  
