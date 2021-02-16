@@ -223,46 +223,45 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
 
 # Deploy
 
-- Deploy API 호출
+- Deploy (API 방식)
 
 ```
 # Namespace 생성
-kubectl create ns skteam02
+kubectl create ns sk2
 
-# 소스를 가져와 각각의 MSA 별로 빌드 진행
+# Github(jongdukwon/sk2_jdwon)에서 소스를 가져온 후 각각의 MSA 디렉토리로 이동한 및 Packaging(mvn package) 진행
 
 # 도커라이징 : Azure Registry에 Image Push 
-az acr build --registry skteam02 --image skteam02.azurecr.io/reservation:latest .  
-az acr build --registry skteam02 --image skteam02.azurecr.io/deposit:latest . 
-az acr build --registry skteam02 --image skteam02.azurecr.io/restaurant:latest .   
-az acr build --registry skteam02 --image skteam02.azurecr.io/customercenter:latest .   
-az acr build --registry skteam02 --image skteam02.azurecr.io/gateway:latest . 
+az acr build --registry jdwon --image jdwon.azurecr.io/reservation:latest . 
+az acr build --registry jdwon --image jdwon.azurecr.io/deposit:latest . 
+az acr build --registry jdwon --image jdwon.azurecr.io/restaurant:latest . 
+az acr build --registry jdwon --image jdwon.azurecr.io/customercenter:latest .  
+az acr build --registry jdwon --image jdwon.azurecr.io/recommendation:latest . 
+az acr build --registry jdwon --image jdwon.azurecr.io/gateway:latest . 
 
 # 컨테이터라이징 : Deploy, Service 생성
-kubectl create deploy reservation --image=skteam02.azurecr.io/reservation:latest -n skteam02
-kubectl expose deploy reservation --type="ClusterIP" --port=8080 -n skteam02
-kubectl create deploy deposit --image=skteam02.azurecr.io/deposit:latest -n skteam02
-kubectl expose deploy deposit --type="ClusterIP" --port=8080 -n skteam02
-kubectl create deploy restaurant --image=skteam02.azurecr.io/restaurant:latest -n skteam02
-kubectl expose deploy restaurant --type="ClusterIP" --port=8080 -n skteam02
-kubectl create deploy customercenter --image=skteam02.azurecr.io/customercenter:latest -n skteam02
-kubectl expose deploy customercenter --type="ClusterIP" --port=8080 -n skteam02
-kubectl create deploy gateway --image=skteam02.azurecr.io/gateway:latest -n skteam02
-kubectl expose deploy gateway --type=LoadBalancer --port=8080 -n skteam02
+kubectl create deploy reservation --image=jdwon.azurecr.io/reservation:latest -n sk2
+kubectl expose deploy reservation --type="ClusterIP" --port=8080 -n sk2
+kubectl create deploy deposit --image=jdwon.azurecr.io/deposit:latest -n sk2
+kubectl expose deploy deposit --type="ClusterIP" --port=8080 -n sk2
+kubectl create deploy restaurant --image=jdwon.azurecr.io/restaurant:latest -n sk2
+kubectl expose deploy restaurant --type="ClusterIP" --port=8080 -n sk2
+kubectl create deploy customercenter --image=jdwon.azurecr.io/customercenter:latest -n sk2
+kubectl expose deploy customercenter --type="ClusterIP" --port=8080 -n sk2
+kubectl create deploy recommendation --image=jdwon.azurecr.io/recommendation:latest -n sk2
+kubectl expose deploy recommendation --type="ClusterIP" --port=8080 -n sk2
+kubectl create deploy gateway --image=jdwon.azurecr.io/gateway:latest -n sk2
+kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 
-#kubectl get all -n skteam02
+#kubectl get all -n sk2
 ```
-    
-　  
 　  
 - Deploy 확인
 
-![20210215_155905_18](https://user-images.githubusercontent.com/77368612/107914935-c7118300-6fa6-11eb-83c3-169869bcd5ce.png)
+![20210216_215245](https://user-images.githubusercontent.com/77368612/108065449-5e5b0100-70a1-11eb-8762-22b8a3784f76.png)
+
     
-　  
-　  
-      
-      
+　 
     
 　  
 　  
