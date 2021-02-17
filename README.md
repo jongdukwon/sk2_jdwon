@@ -274,7 +274,7 @@ kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 1. Spring FeignClient + Hystrix 옵션을 사용하여 구현함.  
 2. 예치금 결제(deposit)->추천(recommendation)시의 연결을 RESTful Request/Response로 구현하여, 
    추천정보 요청이 과도할 경우 Circuit Breaker를 통하여 장애격리.  
-3. Hystrix 설정: 요청처리 쓰레드에서 처리시간이 300밀리가 초과한 상태로 일정시간 유지되면 Circuit Breaker 회로가 닫히도록(차단) 설정
+3. Hystrix 설정: 요청처리 쓰레드에서 처리시간이 610밀리가 초과한 상태로 일정시간 유지되면 Circuit Breaker 회로가 닫히도록(차단) 설정
 ```
 
     
@@ -287,28 +287,22 @@ kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 
 - 피호출 서비스(추천:recommendation) 수행전 임의 부하 처리  Deposit.java(entity)
 
-![20210217_124600_2](https://user-images.githubusercontent.com/77368612/108153252-1ded9880-711e-11eb-98b0-447eea1e96fe.png)
+![20210217_142155_4](https://user-images.githubusercontent.com/77368612/108160013-927b0400-712b-11eb-9000-b385ae3af6c9.png)
 
     
 　  
 　  
 
-`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
+`$ siege -c100 -t30S -r10 -v --content-type "application/json" 'http://52.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
 
-- 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인 (동시사용자 100명, 60초 진행)
+- 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인 (동시사용자 100명, 30초 진행)
 
-![20210215_160633_7](https://user-images.githubusercontent.com/77368612/107916124-1bb5fd80-6fa9-11eb-8ee7-8a340d7a7682.png)
-```
-* 요청이 과도하여 CB를 동작함 요청을 차단
-* 요청을 어느정도 돌려보내고나니, 기존에 밀린 일들이 처리되었고, 회로를 닫아 요청을 다시 받기 시작
-* 다시 요청이 쌓이기 시작하여 건당 처리시간이 610 밀리를 살짝 넘기기 시작 => 회로 열기 => 요청 실패처리
-```
-    
-　  
-　  
-![20210215_152121_8](https://user-images.githubusercontent.com/77368612/107915450-d93ff100-6fa7-11eb-8ac6-78c508828b29.png)
+![20210217_142155_3](https://user-images.githubusercontent.com/77368612/108160215-03bab700-712c-11eb-8add-c92ac766039f.png)
 
 `운영시스템은 죽지 않고 지속적으로 CB 에 의하여 적절히 회로가 열림과 닫힘이 벌어지면서 자원을 보호하고 있음을 보여줌`
+
+![20210217_142155_1](https://user-images.githubusercontent.com/77368612/108160228-07e6d480-712c-11eb-9465-1327619eae6f.png)
+
     
 　  
     
