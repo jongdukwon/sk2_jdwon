@@ -340,7 +340,7 @@ Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 
 　  
 - CB 에서 했던 방식대로 워크로드를 1분 동안 걸어준다.
 
-`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://54.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
+`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
 
     
 　  
