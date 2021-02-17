@@ -398,7 +398,7 @@ kubectl apply -f kubernetes/deployment.yaml
 kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommendation:r1 -n sk2
 ```
 
-![20210217_105949](https://user-images.githubusercontent.com/77368612/108145801-62be0300-710f-11eb-874c-461c57a680d6.png)
+![20210217_112356](https://user-images.githubusercontent.com/77368612/108147684-abc38680-7112-11eb-8290-481e13f011fb.png)
 
 ```
 - 배포기간 동안 Availability 100%로 무정지 재배포가 성공한 것으로 확인됨.
