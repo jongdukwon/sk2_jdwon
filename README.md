@@ -320,30 +320,27 @@ kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
    
 # Auto Scale(HPA)
 ```
-1. 앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 
-이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다.  
-2. 예치금 결제서비스에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 15프로를 
-넘어서면 replica 를 10개까지 늘려준다.
+Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 를 10개까지 동적으로 늘려주도록 HPA 를 설정한다.
 ```
 
-- 테스트를 위한 리소스 할당(reservation > deployment.yml)
+- 테스트를 위한 리소스 할당(recommendation > deployment.yml)
 
-![20210215_170036_22](https://user-images.githubusercontent.com/77368612/107920178-dcd77600-6faf-11eb-829a-afd2be2be901.png)
+![20210217_092448](https://user-images.githubusercontent.com/77368612/108139321-3308fe00-7103-11eb-83cc-f010d8d988cc.png)
     
 　  
 　  
 
 ### autoscale out 설정 
 
-- kubectl autoscale deploy reservation --min=1 --max=10 --cpu-percent=15 -n skteam2
+- kubectl autoscale deploy recommendation --min=1 --max=10 --cpu-percent=15 -n sk2
 
-![20210215_170036_21](https://user-images.githubusercontent.com/77368612/107920351-2aec7980-6fb0-11eb-9e2a-98bc26e3c503.png)
+![20210217_092944](https://user-images.githubusercontent.com/77368612/108139685-f093f100-7103-11eb-9b4a-b11b5062b1cb.png)
     
 　  
 　  
 - CB 에서 했던 방식대로 워크로드를 1분 동안 걸어준다.
 
-`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.231.94.89:8080/reservations POST {"restaurantNo": "10", "day":"20210214"}' `
+`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.141.62.55/reservations POST {"restaurantNo": "10", "day":"20210214"}'
 
     
 　  
