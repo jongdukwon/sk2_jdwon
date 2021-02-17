@@ -332,22 +332,22 @@ Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 
 
 ### autoscale out 설정 
 
-- kubectl autoscale deploy recommendation --min=1 --max=10 --cpu-percent=15 -n sk2
+`- kubectl autoscale deploy recommendation --min=1 --max=10 --cpu-percent=15 -n sk2`
 
-![20210217_092944](https://user-images.githubusercontent.com/77368612/108139685-f093f100-7103-11eb-9b4a-b11b5062b1cb.png)
+![20210217_100036](https://user-images.githubusercontent.com/77368612/108141442-12db3e00-7107-11eb-83d4-7d9cf6c6df16.png)
     
 　  
 　  
 - CB 에서 했던 방식대로 워크로드를 1분 동안 걸어준다.
 
-`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.141.62.55/reservations POST {"restaurantNo": "10", "day":"20210214"}'
+`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://54.141.22.82/reservations POST {"restaurantNo": "10", "day":"20210214"}'`
 
     
 　  
 　  
 - 오토스케일이 어떻게 되고 있는지 모니터링을 걸어둔다:
 
-`watch kubectl get all -n skteam02`
+`watch kubectl get all -n sk2`
 
     
 　  
