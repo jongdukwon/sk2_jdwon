@@ -398,6 +398,51 @@ kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommen
 ![20210217_105953](https://user-images.githubusercontent.com/77368612/108145804-63569980-710f-11eb-9304-27f3749e4341.png)
     
 　  
+　  
+    
+　  
+　  
+   
+# Config Map
+
+## Config Map 설정
+: 예약입력 시 recommendation 서비스 동기 호출을 위한 URL
+
+- deposit > application.yml 설정
+
+![20210217_152516_2](https://user-images.githubusercontent.com/77368612/108164853-f0f8b000-7134-11eb-9621-8e6b69037124.png)
+ 
+- deposit > deployment.yml 설정
+ 
+![20210217_152516_3](https://user-images.githubusercontent.com/77368612/108164957-184f7d00-7135-11eb-99b5-1d76b57dfcb4.png)
+ 
+- configmap 생성
+
+`kubectl create configmap apiurl --from-literal=url=http://recommendation:8080 --from-literal=fluentd-server-ip=10.xxx.xxx.xxx -n sk2`
+
+![20210217_152516_4](https://user-images.githubusercontent.com/77368612/108165164-754b3300-7135-11eb-9a78-330c3c192c04.png)
+
+
+- deposit 서비스를 deployment.yml 로 재배포 한 후 URL로 예약 호출
+
+`kubectl apply -f deployment.yml -n sk2`
+
+![20210217_152516_5](https://user-images.githubusercontent.com/77368612/108165471-f60a2f00-7135-11eb-93fd-eb0f115aef8a.png)
+
+## Config Map 삭제 후 확인
+
+- 설정한 configmap 삭제 후 서비스 재시작
+
+```
+kubectl delete configmap apiurl -n sk2
+kubectl get pod/deposit-78b899658d-k7mt7 -n sk2 -o yaml | kubectl replace --force -f-
+```
+
+![20210217_152516_6](https://user-images.githubusercontent.com/77368612/108165796-80529300-7136-11eb-8f86-1d3a5b969cad.png)
+
+- configmap 삭제된 상태에서 동일하게 URL로 예약 호출
+
+![20210217_152516_7](https://user-images.githubusercontent.com/77368612/108165799-80eb2980-7136-11eb-939a-b746915ff0ef.png)
 　      
     
 　  
