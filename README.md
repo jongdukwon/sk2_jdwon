@@ -260,7 +260,7 @@ kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 #kubectl get all -n sk2 -o wide
 ```
 
-![20210216_215245](https://user-images.githubusercontent.com/77368612/108065449-5e5b0100-70a1-11eb-8762-22b8a3784f76.png)
+![20210217_095728](https://user-images.githubusercontent.com/77368612/108141168-95afc900-7106-11eb-9076-0c420dd99295.png)
 
     
 　 
