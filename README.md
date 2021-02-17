@@ -279,7 +279,7 @@ kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 
     
 
-- deposit > application.yml 설정
+- reservation > application.yml 설정
 
 ![20210217_124600_1](https://user-images.githubusercontent.com/77368612/108153250-1cbc6b80-711e-11eb-8b24-914cbb2851ac.png)
 
