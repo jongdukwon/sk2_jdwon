@@ -271,32 +271,29 @@ kubectl expose deploy gateway --type=LoadBalancer --port=80 -n sk2
 
 # Circuit Breaker
 ```
-1. 서킷 브레이킹 프레임워크의 선택: Spring FeignClient + Hystrix 옵션을 사용하여 구현함.  
-2. 시나리오는 예약(reservation)-->예치금 결제(deposit) 시의 연결을 RESTful Request/Response 로 연동하여 구현이 되어있고, 예치금 결제 요청이 과도할 경우 CB 를 통하여 장애격리.  
-3. Hystrix 를 설정: 요청처리 쓰레드에서 처리시간이 300 밀리가 넘어서기 시작하여 어느정도 유지되면 CB 회로가 닫히도록 (요청을 빠르게 실패처리, 차단) 설정
+1. Spring FeignClient + Hystrix 옵션을 사용하여 구현함.  
+2. 예치금 결제(deposit)->추천(recommendation)시의 연결을 RESTful Request/Response로 구현하여, 
+   추천정보 요청이 과도할 경우 Circuit Breaker를 통하여 장애격리.  
+3. Hystrix 설정: 요청처리 쓰레드에서 처리시간이 300밀리가 초과한 상태로 일정시간 유지되면 Circuit Breaker 회로가 닫히도록(차단) 설정
 ```
 
     
-　  
-　  
 
+- deposit > application.yml 설정
 
-- application.yml 설정
+![20210217_124600_1](https://user-images.githubusercontent.com/77368612/108153250-1cbc6b80-711e-11eb-8b24-914cbb2851ac.png)
 
-![20210215_160633_19](https://user-images.githubusercontent.com/77368612/107915501-f379cf00-6fa7-11eb-9134-0aa25f7ce18b.png)
-
-    
 　  
 
-- 피호출 서비스(예치금 결제:deposit) 의 임의 부하 처리  Reservation.java(entity)
+- 피호출 서비스(추천:recommendation) 수행전 임의 부하 처리  Deposit.java(entity)
 
-![20210215_160633_20](https://user-images.githubusercontent.com/77368612/107915504-f4126580-6fa7-11eb-97a6-9c5f58ca0a46.png)
+![20210217_124600_2](https://user-images.githubusercontent.com/77368612/108153252-1ded9880-711e-11eb-98b0-447eea1e96fe.png)
 
     
 　  
 　  
 
-`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.231.94.89:8080/reservations POST {"restaurantNo": "10", "day":"20210214"}'`
+`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
 
 - 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인 (동시사용자 100명, 60초 진행)
 
