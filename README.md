@@ -367,45 +367,44 @@ Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 
 
 - seige 로 배포작업 직전에 워크로드를 모니터링 함.
 
-`siege -c100 -t80S -r10 -v --content-type "application/json" 'http://52.231.94.89:8080/reservations POST {"restaurantNo": "10", "day":"20210214"}'`
+`siege -c100 -t60S -r10 -v --content-type "application/json" 'http://52.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
     
 　  
 　  
 
-- 새버전으로의 배포 시작
-```
-kubectl set image deploy reservation reservation=skteam02.azurecr.io/reservation:r1 -n skteam02
-```
-    
-　  
-　  
-### readiness 옵션이 없는 경우 배포 중 서비스 요청처리 실패
+### readiness 옵션이 없는 경우 : 배포 중 서비스 요청처리 실패
 
-![20210215_174012_25](https://user-images.githubusercontent.com/77368612/107923856-6b022b00-6fb5-11eb-83ec-d9aff7aab485.png)
+- 새버전으로 이미지 변경배포 후 Availability 확인
+```
+kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommendation:r1 -n sk2
+```
+
+![20210217_112009](https://user-images.githubusercontent.com/77368612/108147398-1de79b80-7112-11eb-9c93-6aa5a23c4298.png)
     
 　  
 　  
    
 ### readiness 옵션 추가
 
-- deployment.yaml 의 readiness probe 의 설정
-
-![20210215_174655](https://user-images.githubusercontent.com/77368612/107924141-d6e49380-6fb5-11eb-98e9-73c36346fca8.png)
-    
-　  
-　  
+- recommendation > deployment.yaml 의 readiness probe 의 설정하여 recommendation 서비스 배포
 ```
-# readiness 적용 이미지 배포
 kubectl apply -f kubernetes/deployment.yaml
-# 이미지 변경 배포 한 후 Availability 확인:
 ```
-![20210215_174012_27](https://user-images.githubusercontent.com/77368612/107924279-0dbaa980-6fb6-11eb-985b-0891124e9e24.png)
-    
-　  
-　  
-- 배포기간 동안 Availability 가 변화없기 때문에 무정지 재배포가 성공한 것으로 확인됨.
 
-![20210215_174012_28](https://user-images.githubusercontent.com/77368612/107924289-114e3080-6fb6-11eb-935f-a21ea1d7b33c.png)
+![20210217_103857](https://user-images.githubusercontent.com/77368612/108144124-5dab8480-710c-11eb-9d3c-980b9de100f1.png)
+    
+```
+# 이미지 변경배포 후 Availability 확인:
+kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommendation:r1 -n sk2
+```
+
+![20210217_105949](https://user-images.githubusercontent.com/77368612/108145801-62be0300-710f-11eb-874c-461c57a680d6.png)
+
+```
+- 배포기간 동안 Availability 100%로 무정지 재배포가 성공한 것으로 확인됨.
+```
+
+![20210217_105953](https://user-images.githubusercontent.com/77368612/108145804-63569980-710f-11eb-9304-27f3749e4341.png)
     
 　  
 　      
