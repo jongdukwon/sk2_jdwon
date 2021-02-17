@@ -330,7 +330,7 @@ Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 
 　  
 　  
 
-### autoscale out 설정 
+### Autoscale Out 설정 
 
 `- kubectl autoscale deploy recommendation --min=1 --max=10 --cpu-percent=15 -n sk2`
 
@@ -340,7 +340,7 @@ Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 
 　  
 - CB 에서 했던 방식대로 워크로드를 1분 동안 걸어준다.
 
-`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://54.141.22.82/reservations POST {"restaurantNo": "10", "day":"20210214"}'`
+`$ siege -c100 -t60S -r10 -v --content-type "application/json" 'http://54.141.22.82/reservations POST {"restaurantNo": "100", "day":"20210217"}'`
 
     
 　  
@@ -350,11 +350,10 @@ Recommendation 서비스에 대해 CPU 사용량이 15%를 넘어서면 replica 
 `watch kubectl get all -n sk2`
 
     
-　  
-　  
-- 어느정도 시간이 흐른 후 (약 30초) 스케일 아웃이 벌어지는 것을 확인할 수 있다:
+    
+- 어느정도 시간이 흐른 후 스케일 아웃이 벌어지는 것을 확인할 수 있다:
 
-![20210215_170036_23](https://user-images.githubusercontent.com/77368612/107920537-77d05000-6fb0-11eb-9a64-ebcb5525793e.png)
+![20210217_101213](https://user-images.githubusercontent.com/77368612/108142197-a06b5d80-7108-11eb-901a-dda9a004a19d.png)
     
 　  
 　  
