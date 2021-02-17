@@ -406,7 +406,7 @@ kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommen
 
 ### Config Map 설정
 
-: 예약입력 시 recommendation 서비스 동기 호출을 위한 URL
+대상 : 예약 등록시 동기 호출을 위한 recommendation 서비스 URL
 
 - deposit > application.yml 설정
 
