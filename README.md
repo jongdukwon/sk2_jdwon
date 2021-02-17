@@ -386,7 +386,7 @@ kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommen
    
 ### readiness 옵션 추가
 
-- recommendation > deployment.yaml 의 readiness probe 의 설정하여 recommendation 서비스 배포
+- recommendation > deployment.yaml 에 readiness probe를 설정하여 recommendation 서비스 배포
 ```
 kubectl apply -f kubernetes/deployment.yaml
 ```
