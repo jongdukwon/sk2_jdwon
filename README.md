@@ -405,7 +405,8 @@ kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommen
    
 # Config Map
 
-## Config Map 설정
+### Config Map 설정
+
 : 예약입력 시 recommendation 서비스 동기 호출을 위한 URL
 
 - deposit > application.yml 설정
@@ -429,7 +430,7 @@ kubectl set image deploy recommendation recommendation=jdwon.azurecr.io/recommen
 
 ![20210217_152516_5](https://user-images.githubusercontent.com/77368612/108165471-f60a2f00-7135-11eb-93fd-eb0f115aef8a.png)
 
-## Config Map 삭제 후 확인
+### Config Map 삭제 후 확인
 
 - 설정한 configmap 삭제 후 서비스 재시작
 
