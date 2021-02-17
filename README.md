@@ -151,12 +151,11 @@ Reservation, Deposit, Customerservice는 H2로 구현하고 Restaurant, Recommen
 
 - reservation, deposit, customercenter의 pom.xml 파일 설정
 
-![20210216_194247](https://user-images.githubusercontent.com/77368612/108052240-2e0a6700-708f-11eb-8e69-79fce45c73d8.png)
+![20210216_194240](https://user-images.githubusercontent.com/77368612/108052238-2d71d080-708f-11eb-9e50-1ba5089111c4.png)
     
-
 - restaurant, recommendation의 pom.xml 파일 설정
 
-![20210216_194240](https://user-images.githubusercontent.com/77368612/108052238-2d71d080-708f-11eb-9e50-1ba5089111c4.png)
+![20210216_194247](https://user-images.githubusercontent.com/77368612/108052240-2e0a6700-708f-11eb-8e69-79fce45c73d8.png)
     
 　  
     
